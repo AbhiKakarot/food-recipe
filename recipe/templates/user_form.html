@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<div class="form">
+      
+      <ul class="tab-group">
+        <a href="{% url 'recipe:signup' %}"><li class="tab {% if 'signup' in request.path %}active{% endif %}">Sign Up</li></a>
+        <a href="{% url 'recipe:login' %}"><li class="tab {% if 'login' in request.path %}active{% endif %}">Log In</li></a>
+      </ul>
+      
+      <div class="tab-content">
+        {% if 'signup' in request.path %}
+        <div id="signup">   
+          <h1>Sign Up for Free</h1>
+          
+          <form action="" method="post">
+          {% csrf_token %}
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                First Name<span class="req">*</span>
+              </label>
+              <input type="text" required autocomplete="off" name="first_name"  value="{{ signup_form.first_name.value|default:'' }}"/>
+            </div>
+        
+            <div class="field-wrap">
+              <label>
+                Last Name<span class="req">*</span>
+              </label>
+              <input type="text"required autocomplete="off" name="last_name" value="{{ signup_form.last_name.value|default:'' }}"/>
+            </div>
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input type="email"required autocomplete="off" name="username" value="{{ signup_form.username.value|default:'' }}"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Set A Password<span class="req">*</span>
+            </label>
+            <input type="password"required autocomplete="off" name="password"/>
+          </div>
+          
+          <button type="submit" class="button button-block">Get Started</button>
+          
+          </form>
+
+        </div>
+        {% endif %}
+        {% if 'login' in request.path %}
+        <div id="login">   
+          <h1>Welcome Back!</h1>
+          
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input type="email"required autocomplete="off" name="username" value="{{ login_form.username.value|default:'' }}" />
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Password<span class="req">*</span>
+            </label>
+            <input type="password"required autocomplete="off" name="password"/>
+          </div>
+          
+          <p class="forgot"><a href="#">Forgot Password?</a></p>
+          
+          <button class="button button-block">Log In</button>
+          
+          </form>
+
+        </div>
+        {% endif %}
+      </div><!-- tab-content -->
+      
+</div> <!-- /form -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="{% static 'js/local.js' %}"></script>
+</body>
+</html>
